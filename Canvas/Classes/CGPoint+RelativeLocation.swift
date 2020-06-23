@@ -10,7 +10,7 @@ import Foundation
 public extension CGPoint {
     
     /** Returns the relative location of point a in comparison to point b. */
-    public func location(inRelationTo b: CGPoint) -> RelativePointPosition {
+    func location(inRelationTo b: CGPoint) -> RelativePointPosition {
         var rpl: RelativePointPosition = .upperRight
         let a: CGPoint = self
         
@@ -36,7 +36,7 @@ public extension CGPoint {
     
     
     /** Returns whether or not this point is within the range of another point. */
-    public func inRange(of: CGPoint, by range: CGFloat) -> Bool {
+    func inRange(of: CGPoint, by range: CGFloat) -> Bool {
         let dist = self.distance(to: of)
         return dist <= range
     }

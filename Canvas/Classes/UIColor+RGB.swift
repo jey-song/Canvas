@@ -28,7 +28,7 @@ func multiplyColor(_ color: UIColor, by multiplier: CGFloat) -> UIColor {
 public extension UIColor {
     
     /** Returns the RGBA values of a color, or (0,0,0,0) if the color could not be extracted. */
-    public var rgba: [CGFloat] {
+    var rgba: [CGFloat] {
         guard let comps = cgColor.components else { return [0, 0, 0, 0] }
         
         switch comps.count {
@@ -54,7 +54,7 @@ public extension UIColor {
 public extension CGColor {
     
     /** Returns the RGBA values of a color, or (0,0,0,0) if the color could not be extracted. */
-    public var rgba: [CGFloat] {
+    var rgba: [CGFloat] {
         guard let comps = components else { return [0, 0, 0, 0] }
         
         switch comps.count {

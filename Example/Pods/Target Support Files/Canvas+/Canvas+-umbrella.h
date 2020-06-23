@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double CanvasVersionNumber;
-FOUNDATION_EXPORT const unsigned char CanvasVersionString[];
+FOUNDATION_EXPORT double Canvas_VersionNumber;
+FOUNDATION_EXPORT const unsigned char Canvas_VersionString[];
 

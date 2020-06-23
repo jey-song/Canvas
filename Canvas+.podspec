@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'Canvas+'
-    s.version          = '3.0.6'
+    s.version          = '3.0.7'
     s.summary          = 'A customizable painting canvas for iOS applications.'
     
     # This description is used to generate tags and improve search results.
@@ -22,21 +22,11 @@ Pod::Spec.new do |s|
     DESC
     
     s.homepage         = 'https://github.com/authman2/Canvas'
-    # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
     s.license          = { :type => 'MIT', :file => 'LICENSE' }
     s.author           = { 'authman2' => 'authman2@gmail.com' }
     s.source           = { :git => 'https://github.com/authman2/Canvas.git', :tag => s.version.to_s }
-    # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
     
-    s.ios.deployment_target = '12.0'
+    s.ios.deployment_target = '10.0'
     
     s.source_files = 'Canvas/Classes/**/*'
-    
-    # s.resource_bundles = {
-    #   'Canvas' => ['Canvas/Assets/*.png']
-    # }
-    
-    # s.public_header_files = 'Pod/Classes/**/*.h'
-    # s.frameworks = 'UIKit', 'MapKit'
-    # s.dependency 'AFNetworking', '~> 2.3'
 end

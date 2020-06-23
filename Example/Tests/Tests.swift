@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-import Canvas
+import Canvas_
 
 class Tests: XCTestCase {
     

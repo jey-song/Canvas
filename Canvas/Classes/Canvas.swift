@@ -213,6 +213,8 @@ public class Canvas: UIView {
             case .square:
                 shapeLayer.lineCap = CAShapeLayerLineCap.square
                 break
+            @unknown default:
+                fatalError()
             }
             switch node.brush.joinStyle {
             case .bevel:
@@ -224,6 +226,8 @@ public class Canvas: UIView {
             case .round:
                 shapeLayer.lineJoin = CAShapeLayerLineJoin.round
                 break
+            @unknown default:
+                fatalError()
             }
             
             var nPos = path.boundingBox.origin
@@ -266,6 +270,8 @@ public class Canvas: UIView {
             case .square:
                 shapeLayer.lineCap = CAShapeLayerLineCap.square
                 break
+            @unknown default:
+                fatalError()
             }
             switch node.brush.joinStyle {
             case .bevel:
@@ -277,6 +283,8 @@ public class Canvas: UIView {
             case .round:
                 shapeLayer.lineJoin = CAShapeLayerLineJoin.round
                 break
+            @unknown default:
+                fatalError()
             }
             
             var nPos = path.boundingBox.origin
@@ -452,6 +460,8 @@ public class Canvas: UIView {
             case .square:
                 shapeLayer.lineCap = CAShapeLayerLineCap.square
                 break
+            @unknown default:
+                fatalError()
             }
             switch node.brush.joinStyle {
             case .bevel:
@@ -463,6 +473,8 @@ public class Canvas: UIView {
             case .round:
                 shapeLayer.lineJoin = CAShapeLayerLineJoin.round
                 break
+            @unknown default:
+                fatalError()
             }
             
             var nPos = path.boundingBox.origin

@@ -1,16 +1,16 @@
 PODS:
-  - Canvas (0.1.0)
+  - "Canvas+ (3.0.7)"
 
 DEPENDENCIES:
-  - Canvas (from `../`)
+  - "Canvas+ (from `../`)"
 
 EXTERNAL SOURCES:
-  Canvas:
-    :path: ../
+  "Canvas+":
+    :path: "../"
 
 SPEC CHECKSUMS:
-  Canvas: a4bb0fe09e3fd487d48b339b2806980b8844dc65
+  "Canvas+": 184872e969aa0ad10d379ed17f34bab823b3054c
 
-PODFILE CHECKSUM: 8894004838d689237ea4aeda48d69bece4c83a36
+PODFILE CHECKSUM: ffc311475e0cf75711779470c9a2d6a3571e0e40
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.8.4

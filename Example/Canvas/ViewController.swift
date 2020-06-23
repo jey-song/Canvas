@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Canvas
+import Canvas_
 
 class ViewController: UIViewController, CanvasEvents, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
@@ -311,6 +311,8 @@ class ViewController: UIViewController, CanvasEvents, UINavigationControllerDele
         canvasView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         canvasView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         canvasView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7).isActive = true
+        
+        
         
         canvas.centerXAnchor.constraint(equalTo: canvasView.centerXAnchor).isActive = true
         canvas.topAnchor.constraint(equalTo: canvasView.topAnchor).isActive = true

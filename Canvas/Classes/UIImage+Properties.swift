@@ -10,7 +10,7 @@ import Foundation
 /** Extension to UIImage that allows the adding of multiple images. */
 public extension UIImage {
     
-    public static func +(lhs: UIImage, rhs: UIImage) -> UIImage {
+    static func +(lhs: UIImage, rhs: UIImage) -> UIImage {
         let nWidth = max(lhs.size.width, rhs.size.width)
         let nHeight = max(lhs.size.height, rhs.size.height)
         let nSize = CGSize(width: nWidth, height: nHeight)

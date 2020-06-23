@@ -1,7 +1,7 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## Canvas
+## Canvas+
 
 Copyright (c) 2018 authman2 <authman2@gmail.com>
 
