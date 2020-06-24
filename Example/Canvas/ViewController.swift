@@ -229,6 +229,9 @@ class ViewController: UIViewController, CanvasEvents, UINavigationControllerDele
         
     }
     
+    func didFinishPlayNodes(on canvas: Canvas, nodes: [Node], id: Int?) {
+        
+    }
     
     
     

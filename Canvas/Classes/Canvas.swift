@@ -89,7 +89,8 @@ public class Canvas: UIView {
         return self._canvasLayers
     }
     
-    
+    public var scaleX: CGFloat = 1
+    public var scaleY: CGFloat = 1
     
     
     /************************
@@ -156,6 +157,7 @@ public class Canvas: UIView {
     
     /** Clears the entire canvas. */
     public func clear() {
+        self.stopTimer()
         for i in 0..<_canvasLayers.count { clearLayer(at: i) }
         setNeedsDisplay()
     }
@@ -164,6 +166,7 @@ public class Canvas: UIView {
     /** Clears a drawing on the layer at the specified index. */
     public func clearLayer(at: Int) {
         if at < 0 || at >= _canvasLayers.count { return }
+        self.stopTimer()
         _canvasLayers[at].clear(from: self)
         undoRedoManager.clearRedos()
         setNeedsDisplay()
@@ -195,6 +198,8 @@ public class Canvas: UIView {
             let path = build(from: node.points, using: node.instructions, tool: node.type)
             let shapeLayer = CAShapeLayer()
             shapeLayer.bounds = path.boundingBox
+            let transform = CATransform3DScale(CATransform3DIdentity, scaleX, scaleY, 0)
+            shapeLayer.transform = transform
             shapeLayer.path = path
             shapeLayer.strokeColor = node.brush.strokeColor.cgColor
             shapeLayer.fillRule = CAShapeLayerFillRule.evenOdd
@@ -301,13 +306,63 @@ public class Canvas: UIView {
         return img ?? UIImage()
     }
     
-    
-    
     // -- COPY / PASTE --
+    /** auto play */
+    private var timer: DispatchSourceTimer?
+    private func stopTimer() {
+        timer?.cancel()
+        timer = nil
+    }
+    
+    public func autoPlay(nodes: [Node], id: Int? = nil) {
+        self.clear()
+        
+        _copiedNodes = nodes
+        let timer = DispatchSource.makeTimerSource(queue: .main)
+        timer.setCancelHandler { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.didFinishPlayNodes(on: strongSelf, nodes: nodes, id: id)
+        }
+        self.timer = timer
+        var index: Int = 0
+        var points: [[CGPoint]] = []
+        var instructions: [CGPathElementType] = []
+        timer.schedule(deadline: .now() + 0.3, repeating: .seconds(1/24))
+        timer.setEventHandler { [weak self] in
+            guard let strongSelf = self,
+                let cl = strongSelf.currentLayer,
+                index < nodes.count else {
+                self?.timer?.cancel()
+                return
+            }
+            let node = nodes[index]
+            if points.isEmpty {
+                points = node.points.reversed()
+                instructions = node.instructions.reversed()
+                strongSelf.currentBrush = node.brush
+                node.points = []
+                node.instructions = []
+                cl.drawings.append(node)
+            }
+            if let ps = points.popLast(),
+                let ins = instructions.popLast() {
+                node.points.append(ps)
+                node.instructions.append(ins)
+            }
+            if points.isEmpty || instructions.isEmpty {
+                index += 1
+            }
+            strongSelf.setNeedsDisplay()
+        }
+        timer.resume()
+    }
     
     /** Copies a particular node so that it can be pasted later. */
     public func copy(nodes: [Node]) {
         _copiedNodes = nodes
+        if let brush = nodes.first?.brush {
+            self.currentBrush = brush
+        }
         self.delegate?.didCopyNodes(on: self, nodes: nodes)
     }
     
@@ -418,12 +473,14 @@ public class Canvas: UIView {
         // Create a CGContext to draw all of the lines on that layer.
         for node in layer.drawings {
             // Draw using the context.
-            let path = build(from: node.points, using: node.instructions, tool: node.type)
-            
+            let ps = node.points.map({ points in
+                return points.map { CGPoint(x: $0.x * scaleX, y: $0.y * scaleY) }
+            })
+            let path = build(from: ps, using: node.instructions, tool: node.type)
             context.addPath(path)
             context.setLineCap(node.brush.shape)
             context.setLineJoin(node.brush.joinStyle)
-            context.setLineWidth(node.brush.thickness)
+            context.setLineWidth(node.brush.thickness * scaleX)
             context.setMiterLimit(node.brush.miter)
             context.setAlpha(node.brush.opacity)
             context.setBlendMode(.normal)

@@ -85,8 +85,8 @@ public struct Brush: Codable {
         let sc = try container?.decodeIfPresent([CGFloat].self, forKey: BrushCodingKeys.strokeColor) ?? [0,0,0,1]
         let fc = try container?.decodeIfPresent([CGFloat].self, forKey: BrushCodingKeys.fillColor) ?? nil
         
-        strokeColor = UIColor(red: sc[0]/255, green: sc[1]/255, blue: sc[2]/255, alpha: sc[3])
-        if fc != nil { fillColor = UIColor(red: fc![0]/255, green: fc![1]/255, blue: fc![2]/255, alpha: fc![3]) }
+        strokeColor = UIColor(red: sc[0], green: sc[1], blue: sc[2], alpha: sc[3])
+        if let fc = fc, fc.count == 4 { fillColor = UIColor(red: fc[0], green: fc[1], blue: fc[2], alpha: fc[3]) }
         else { fillColor = nil }
     }
     
@@ -113,7 +113,7 @@ public struct Brush: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: BrushCodingKeys.self)
         try container.encode(strokeColor.rgba, forKey: BrushCodingKeys.strokeColor)
-        if fillColor != nil { try container.encode(fillColor!.rgba, forKey: BrushCodingKeys.fillColor) }
+        if let color = fillColor { try container.encode(color.rgba, forKey: BrushCodingKeys.fillColor) }
         try container.encode(thickness, forKey: BrushCodingKeys.thickness)
         try container.encode(opacity, forKey: BrushCodingKeys.opacity)
         try container.encode(miter, forKey: BrushCodingKeys.miter)

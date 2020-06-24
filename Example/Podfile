@@ -1,5 +1,7 @@
 use_frameworks!
 
+source 'https://github.com/CocoaPods/specs.git'
+
 target 'Canvas_Example' do
   pod 'Canvas+', :path => '../'
 

@@ -52,4 +52,6 @@ public protocol CanvasEvents {
     /** Called when nodes change position (i.e. when they are moved) on the canvas. */
     func didMoveNodes(on canvas: Canvas, movedNodes: [Node])
     
+    /** Called when auto-play is canceled. */
+    func didFinishPlayNodes(on canvas: Canvas, nodes: [Node], id: Int?)
 }
